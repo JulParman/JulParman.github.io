@@ -11,6 +11,9 @@ function loadData() {
     if (contacts) {
         getContact(contacts);
     }
+    else{
+        contacts = getLocalStorage();
+    }
 }
 
 function addContact() {
