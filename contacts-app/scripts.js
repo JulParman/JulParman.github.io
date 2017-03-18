@@ -12,7 +12,7 @@ function loadData() {
         getContact(contacts);
     }
     else{
-        contacts = getLocalStorage();
+        contacts = [];
     }
 }
 
