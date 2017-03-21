@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="scripts.js"></script>
+    <script type="text/javascript" src="lips/lodash.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="contact.js"></script>
+    <script type="text/javascript" src="contact-localstorage.js"></script>
+    <script type="text/javascript" src="print-contacts.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -40,8 +44,9 @@
     <br>
     <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Add"
            onclick="addContact()">
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="deleteRow()">Delete</button>
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="updateRow()">Update
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="deleteContacts()">Delete
+    </button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onclick="updateContacts()">Update
     </button>
 </form>
 <h4 id="header3">Contacts</h4>
@@ -61,4 +66,33 @@
 </table>
 
 </body>
+<script>
+    var contactsArray = [];
+
+    function loadData() {
+        try {
+            contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
+        }
+        catch (err) {
+            document.getElementById("header3").innerHTML = err.message;
+        }
+        if (contactsArray) {
+            contactsApp.printContacts.getContacts();
+        }
+    }
+
+    function addContact() {
+        contactsApp.contactLocalStorage.writeStorage(contactsArray);
+        contactsApp.printContacts.getContacts();
+    }
+
+    function deleteContacts() {
+        contactsApp.contactLocalStorage.deleteRowFromStorage();
+    }
+
+    function updateContacts() {
+        contactsApp.contactLocalStorage.updateRowFromStorage();
+    }
+
+</script>
 </html>
