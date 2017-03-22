@@ -16,8 +16,10 @@ namespace WebApi.Models
         public ContactRepository(ContactContext context)
         {
             _context = context;
-            //Add(new ContactItem(key:1,  firstName : "Keijo", lastName : "Testi", phone : 0404445556, address : "Saimaantie 3, Lappeenranta" ));
-            Add(new ContactItem{FirstName = "Keijo", LastName = "Testi", Phone = "0404445556", Address = "Saimaantie 3, Lappeenranta"});
+            Add(new ContactItem{ FirstName = "Keijo", LastName = "Testi", Phone = "0404445556", Address = "Saimaantie 3", City = "Lappeenranta" });
+            Add(new ContactItem { FirstName = "XXXXX", LastName = "XXXXX", Phone = "0404447979", Address = "Saimaantie 1", City = "Lappeenranta" });
+            Add(new ContactItem { FirstName = "Julian", LastName = "Parman", Phone = "0405554556", Address = "Saimaantie 4", City = "Lappeenranta" });
+            Add(new ContactItem { FirstName = "Keke", LastName = "Joku", Phone = "0404445256", Address = "Saimaantie 5", City = "Lappeenranta" });
         }
         //Palauttaa kaikki yhteystiedot
         public IEnumerable<ContactItem> GetAll()

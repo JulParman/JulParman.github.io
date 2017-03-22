@@ -5,8 +5,10 @@
     <title>Contacts</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="lips/lodash.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="contact.js"></script>
+    <script type="text/javascript" src="contact-server.js"></script>
     <script type="text/javascript" src="contact-localstorage.js"></script>
     <script type="text/javascript" src="print-contacts.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -71,7 +73,11 @@
 
     function loadData() {
         try {
-            contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
+            //contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
+            contactsArray = $.get("/api/contact", function (data) {
+                $(".result").html(data);
+                alert("Load was performed.");
+            });
         }
         catch (err) {
             document.getElementById("header3").innerHTML = err.message;
