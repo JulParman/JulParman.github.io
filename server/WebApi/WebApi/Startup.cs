@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebApi.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi
 {
@@ -32,8 +33,19 @@ namespace WebApi
             // requires using Microsoft.EntityFrameworkCore;
             services.AddDbContext<ContactContext>(opt => opt.UseInMemoryDatabase());
 
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             // Add framework services.
             services.AddMvc();
+            
 
             services.AddSingleton<IContactRepository, ContactRepository>();
         }
@@ -44,7 +56,16 @@ namespace WebApi
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("CorsPolicy");
             app.UseMvc();
+
+            // IMPORTANT: Make sure UseCors() is called BEFORE this
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

@@ -74,16 +74,13 @@
     function loadData() {
         try {
             //contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-            contactsArray = $.get("/api/contact", function (data) {
-                $(".result").html(data);
-                alert("Load was performed.");
-            });
+            contactsArray = contactsApp.getDataFromServer.getContacts();
         }
         catch (err) {
             document.getElementById("header3").innerHTML = err.message;
         }
         if (contactsArray) {
-            contactsApp.printContacts.getContacts();
+            contactsApp.printContacts.printContactsFromArray(contactsArray);
         }
     }
 

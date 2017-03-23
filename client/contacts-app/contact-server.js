@@ -1,11 +1,15 @@
 contactsApp.getDataFromServer = (function () {
-    $.get("/api/contact", function (data) {
-            $(".result").html(data);
-            alert("Load was performed.");
-        });
+
     return{
-        loadServerData: function () {
-            $.get();
+        getContacts: function () {
+            return $.ajax({
+                url: "http://localhost:51057/api/contact",
+                type: 'GET',
+                success: function(data) {
+                     //JSON.stringify(data);
+                }
+            });
         }
+
     }
     })();

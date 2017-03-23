@@ -1,11 +1,9 @@
 contactsApp.printContacts = (function () {
 
-    function getContactFromArray() {
+    function getContactFromArray(contactsArray) {
         //var data = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-        var data = $.get("/api/contact", function (data) {
-            $(".result").html(data);
-            alert("Load was performed.");
-        });
+        //var data = contactsApp.getDataFromServer.getContacts();
+        var data = JSON.parse(contactsArray.responseText);
         var newRow = '';
         var nro = 0;
         for (var i = 0; i < data.length; i++) {
@@ -22,8 +20,8 @@ contactsApp.printContacts = (function () {
     }
 
     return {
-        getContacts: function () {
-            getContactFromArray();
+        printContactsFromArray: function (contactsArray) {
+            getContactFromArray(contactsArray);
         }
     }
 })();

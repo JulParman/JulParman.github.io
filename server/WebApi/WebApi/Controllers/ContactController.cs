@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 
@@ -9,6 +10,7 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/contact")]
     public class ContactController : Controller
     {
@@ -66,7 +68,7 @@ namespace WebApi.Controllers
             contact.FirstName = item.FirstName;
             contact.LastName = item.LastName;
             contact.Phone = item.Phone;
-            contact.Address = item.Address;
+            contact.Address = item.Address + ", " + item.City;
             contact.City = item.City;
 
             _contactRepository.Update(contact);
