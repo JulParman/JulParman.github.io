@@ -72,16 +72,21 @@
     var contactsArray = [];
 
     function loadData() {
+
+        function dataLoaded(contacts) {
+            if (contacts) {
+                contactsApp.printContacts.printContactsFromArray(contacts);
+            }
+        }
+
         try {
             //contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-            contactsArray = contactsApp.getDataFromServer.getContacts();
+            contactsArray = contactsApp.getDataFromServer.getContacts(dataLoaded);
         }
         catch (err) {
             document.getElementById("header3").innerHTML = err.message;
         }
-        if (contactsArray) {
-            contactsApp.printContacts.printContactsFromArray(contactsArray);
-        }
+
     }
 
     function addContact() {

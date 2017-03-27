@@ -1,13 +1,15 @@
 contactsApp.printContacts = (function () {
-
-    function getContactFromArray(contactsArray) {
+    //var data = [];
+    function getContactFromArray(data) {
         //var data = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-        //var data = contactsApp.getDataFromServer.getContacts();
-        var data = JSON.parse(contactsArray.responseText);
+        //data = contactsApp.getDataFromServer.getContacts();
+        //var data = contactsArray;
+
         var newRow = '';
         var nro = 0;
         for (var i = 0; i < data.length; i++) {
-            newRow += "<tr id='" + nro + "'><td>" + data[i].firstName + "</td>" +
+            newRow += "<tr id='" + nro + "'><td><input type='checkbox'>" + "</td>" +
+                "<td>" + data[i].firstName + "</td>" +
                 "<td>" + data[i].lastName + "</td>" +
                 "<td>" + data[i].phone + "</td>" +
                 "<td>" + "<a target='_blank' href='https://www.google.com/maps/place/" + data[i].address + "'>" + data[i].address + "</a>" + "</td></tr>";
