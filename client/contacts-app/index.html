@@ -4,16 +4,8 @@
     <meta charset="UTF-8">
     <title>Contacts</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script type="text/javascript" src="lips/lodash.min.js"></script>
-    <script type="text/javascript" src="jquery/jquery-3.2.0.js"></script>
-    <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="contact.js"></script>
-    <script type="text/javascript" src="contact-server.js"></script>
-    <script type="text/javascript" src="contact-localstorage.js"></script>
-    <script type="text/javascript" src="print-contacts.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 <body onload="loadData()">
 <h4>New Contact</h4>
@@ -52,7 +44,6 @@
     </button>
 </form>
 <h4 id="header3">Contacts</h4>
-
 <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
     <thead>
     <tr>
@@ -66,8 +57,15 @@
 
     </tbody>
 </table>
+<script type="text/javascript" src="lips/lodash.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-3.2.0.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="contact.js"></script>
+<script type="text/javascript" src="contact-server.js"></script>
+<script type="text/javascript" src="contact-localstorage.js"></script>
+<script type="text/javascript" src="print-contacts.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-</body>
 <script>
     var contactsArray = [];
 
@@ -75,13 +73,14 @@
 
         function dataLoaded(contacts) {
             if (contacts) {
+                contactsArray = contacts;
                 contactsApp.printContacts.printContactsFromArray(contacts);
             }
         }
 
         try {
             //contactsArray = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-            contactsArray = contactsApp.getDataFromServer.getContacts(dataLoaded);
+             contactsApp.getDataFromServer.getContacts(dataLoaded);
         }
         catch (err) {
             document.getElementById("header3").innerHTML = err.message;
@@ -90,17 +89,24 @@
     }
 
     function addContact() {
-        contactsApp.contactLocalStorage.writeStorage(contactsArray);
-        contactsApp.printContacts.getContacts();
+        //contactsApp.contactLocalStorage.writeStorage(contactsArray);
+        //contactsApp.printContacts.getContacts();
+        var newContact = contactsApp.contacts();
+        contactsApp.getDataFromServer.writeToServer(newContact);
+
     }
 
     function deleteContacts() {
-        contactsApp.contactLocalStorage.deleteRowFromStorage();
+        //contactsApp.contactLocalStorage.deleteRowFromStorage();
+        //var selectedRow = document.querySelector(".is-selected").rowIndex;
+        contactsApp.getDataFromServer.deleteToServer();
     }
 
     function updateContacts() {
-        contactsApp.contactLocalStorage.updateRowFromStorage();
+        //contactsApp.contactLocalStorage.updateRowFromStorage();
+        contactsApp.getDataFromServer.updateToServer();
     }
 
 </script>
+</body>
 </html>

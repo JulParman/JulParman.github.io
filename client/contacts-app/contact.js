@@ -9,6 +9,7 @@ contactsApp.contacts = function () {
         firstName: firstName,
         lastName: lastName,
         phone: phone,
-        address: address + ', ' + city
+        address: address,
+        city: city
     }
 };

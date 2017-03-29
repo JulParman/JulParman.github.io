@@ -68,7 +68,7 @@ namespace WebApi.Controllers
             contact.FirstName = item.FirstName;
             contact.LastName = item.LastName;
             contact.Phone = item.Phone;
-            contact.Address = item.Address + ", " + item.City;
+            contact.Address = item.Address;
             contact.City = item.City;
 
             _contactRepository.Update(contact);
