@@ -72,7 +72,7 @@ namespace WebApi.Controllers
             contact.City = item.City;
 
             _contactRepository.Update(contact);
-            return new NoContentResult();
+            return new OkResult();
         }
 
         [HttpDelete("{id}")]

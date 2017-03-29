@@ -35,9 +35,9 @@ contactsApp.getDataFromServer = (function () {
 
     function updateContact() {
         var selectedRow = document.querySelector(".is-checked").parentNode.parentNode;
-        var data = selectedRow.dataset.key;
-        var arrayIndex = data - 1;
-        var obj = {};
+        var id = selectedRow.dataset.key;
+        var arrayIndex = id - 1;
+        var obj;
 
         var firstName = document.getElementById('txtfname').value;
         var lastName = document.getElementById('txtlname').value;
@@ -63,19 +63,25 @@ contactsApp.getDataFromServer = (function () {
                 contactsArray[arrayIndex].city = city;
             }
         }
-        obj = contactsArray[arrayIndex];
+        //contactsArray[arrayIndex].key = "";
+        obj = JSON.stringify(contactsArray[arrayIndex]);
 
-        $.ajax({
-            type: "PUT",
-            url: 'http://localhost:51057/api/contact/' + data,
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function () {
-                
-            }
+        function putFunction() {
+            $.ajax({
+                url: 'http://localhost:51057/api/contact/' + id,
+                type: 'PUT',
+                data: obj,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: handleData
+            });
+        }
 
-        });
+        putFunction();
+
+        function handleData(obj) {
+            alert(obj);
+        }
 
     }
 
@@ -85,9 +91,7 @@ contactsApp.getDataFromServer = (function () {
                 url: 'http://localhost:51057/api/contact',
                 type: 'Get',
                 success: function (data) {
-                    /*                   for (var i = 0; i < data.length; i++) {
-                     res.push(data[i]);
-                     }*/
+
                     callback(data);
                 }
 
@@ -100,7 +104,7 @@ contactsApp.getDataFromServer = (function () {
         deleteToServer: function () {
             deleteContact();
         },
-        updateToServer:function () {
+        updateToServer: function () {
             updateContact();
         }
 
