@@ -2,13 +2,11 @@ contactsApp.printContacts = (function () {
     //var data = [];
     function getContactFromArray(data) {
         //var data = contactsApp.contactLocalStorage.getDataFromLocalStorage();
-        //data = contactsApp.getDataFromServer.getContacts();
-        //var data = contactsArray;
 
         var newRow = '';
         var nro = 0;
         for (var i = 0; i < data.length; i++) {
-            newRow += "<tr data-key='"+ data[i].key +"' id='" + nro + "'>" + "<td><label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='checkbox-" + nro + "'>" +
+            newRow += "<tr data-key='" + data[i].key + "' id='" + nro + "'>" + "<td><label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='checkbox-" + nro + "'>" +
                 "<input type='checkbox' id='checkbox-" + nro + "' class='mdl-checkbox__input' />" +
                 "<span class='mdl-checkbox__label'></span>" + "</label></td>" +
                 "<td>" + data[i].firstName + "</td>" +

@@ -7,10 +7,10 @@ contactsApp.getDataFromServer = (function () {
             data: JSON.stringify(newContact),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (newContact) {
+            success: function () {
                 alert("Success");
             },
-            error: function (newContact) {
+            error: function () {
                 alert("Error");
             }
         });
@@ -63,21 +63,17 @@ contactsApp.getDataFromServer = (function () {
                 contactsArray[arrayIndex].city = city;
             }
         }
-        //contactsArray[arrayIndex].key = "";
+
         obj = JSON.stringify(contactsArray[arrayIndex]);
 
-        function putFunction() {
-            $.ajax({
-                url: 'http://localhost:51057/api/contact/' + id,
-                type: 'PUT',
-                data: obj,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: handleData
-            });
-        }
-
-        putFunction();
+        $.ajax({
+            url: 'http://localhost:51057/api/contact/' + id,
+            type: 'PUT',
+            data: obj,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: handleData
+        });
 
         function handleData(obj) {
             alert(obj);
@@ -91,7 +87,6 @@ contactsApp.getDataFromServer = (function () {
                 url: 'http://localhost:51057/api/contact',
                 type: 'Get',
                 success: function (data) {
-
                     callback(data);
                 }
 

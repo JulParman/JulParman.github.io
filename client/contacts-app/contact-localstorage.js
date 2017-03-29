@@ -13,8 +13,6 @@ contactsApp.contactLocalStorage = (function () {
     }
 
     function getLocalStorage() {
-        //if (typeof(Storage) !== "undefined") {
-
         var data = localStorage.getItem(localStorageKey);
         return JSON.parse(data);
     }
