@@ -8,7 +8,7 @@ contactsApp.getDataFromServer = (function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function () {
-                alert("Success");
+                location.reload();
             },
             error: function () {
                 alert("Error");
@@ -19,11 +19,11 @@ contactsApp.getDataFromServer = (function () {
 
     function deleteContact() {
         var selectedRow = document.querySelector(".is-checked").parentNode.parentNode;
-        var data = selectedRow.dataset.key;
+        var id = selectedRow.dataset.key;
 
         $.ajax({
             type: "DELETE",
-            url: 'http://localhost:51057/api/contact/' + data,
+            url: 'http://localhost:51057/api/contact/' + id,
             contentType: "application/json; charset=utf-8",
             dataType: "text",
             success: function () {
@@ -33,53 +33,81 @@ contactsApp.getDataFromServer = (function () {
 
     }
 
-    function updateContact() {
-        var selectedRow = document.querySelector(".is-checked").parentNode.parentNode;
-        var id = selectedRow.dataset.key;
-        var arrayIndex = id - 1;
-        var obj;
+    //function updateContact() {
+        // var rowToUpdate = document.querySelector(".is-checked").parentNode.parentNode;
+        // var id = rowToUpdate.dataset.key;
+        // var arrayIndex = id - 1;
+        // var obj;
+        //
+        // var firstName = document.getElementById('txtfname').value;
+        // var lastName = document.getElementById('txtlname').value;
+        // var phone = document.getElementById('txtphone').value;
+        // var address = document.getElementById('txtaddress').value;
+        // var city = document.getElementById('txtcity').value;
+        //
+        // if (rowToUpdate) {
+        //
+        //     if (firstName) {
+        //         contactsArray[arrayIndex].firstName = firstName;
+        //     }
+        //     if (lastName) {
+        //         contactsArray[arrayIndex].lastName = lastName;
+        //     }
+        //     if (phone) {
+        //         contactsArray[arrayIndex].phone = phone;
+        //     }
+        //     if (address) {
+        //         contactsArray[arrayIndex].address = address;
+        //     }
+        //     if (city) {
+        //         contactsArray[arrayIndex].city = city;
+        //     }
+        //     obj = contactsArray[arrayIndex];
+        //
+        //     $.ajax({
+        //         url: "http://localhost:51057/api/contact/" + id,
+        //         type: "PUT",
+        //         data: JSON.stringify(obj),
+        //         contentType: "application/json; charset=utf-8",
+        //         dataType: "json",
+        //         success: function() {
+        //             location.reload();
+        //         },
+        //         error: function () {
+        //             alert("error");
+        //         }
+        //     });
+        //
+        //     //putFunction(obj);
+        // }
 
-        var firstName = document.getElementById('txtfname').value;
-        var lastName = document.getElementById('txtlname').value;
-        var phone = document.getElementById('txtphone').value;
-        var address = document.getElementById('txtaddress').value;
-        var city = document.getElementById('txtcity').value;
+        // function putFunction(obj) {
+        //     $.ajax({
+        //         url: "http://localhost:51057/api/contact/" + id,
+        //         type: "PUT",
+        //         data: obj,
+        //         timeout: 10000,
+        //         success: function( msg ) {
+        //             alert("done:" + msg);
+        //         },
+        //         error: function () {
+        //             alert("error");
+        //         }
+        //     });
 
-        if (selectedRow) {
 
-            if (firstName) {
-                contactsArray[arrayIndex].firstName = firstName;
-            }
-            if (lastName) {
-                contactsArray[arrayIndex].lastName = lastName;
-            }
-            if (phone) {
-                contactsArray[arrayIndex].phone = phone;
-            }
-            if (address) {
-                contactsArray[arrayIndex].address = address;
-            }
-            if (city) {
-                contactsArray[arrayIndex].city = city;
-            }
-        }
+            // jqxhr.fail(function( jqXHR, textStatus ) {
+            //     alert( "Request failed: " + textStatus );
+            // });
 
-        obj = JSON.stringify(contactsArray[arrayIndex]);
+        //}
 
-        $.ajax({
-            url: 'http://localhost:51057/api/contact/' + id,
-            type: 'PUT',
-            data: obj,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: handleData
-        });
+        // function handler() {
+        //     alert("Success");
+        // }
 
-        function handleData(obj) {
-            alert(obj);
-        }
 
-    }
+    //}
 
     return {
         getContacts: function (callback) {
@@ -89,7 +117,6 @@ contactsApp.getDataFromServer = (function () {
                 success: function (data) {
                     callback(data);
                 }
-
             });
 
         },
@@ -100,7 +127,52 @@ contactsApp.getDataFromServer = (function () {
             deleteContact();
         },
         updateToServer: function () {
-            updateContact();
+            var rowToUpdate = document.querySelector(".is-checked").parentNode.parentNode;
+            var id = rowToUpdate.dataset.key;
+            var arrayIndex = id - 1;
+            var obj;
+
+            var firstName = document.getElementById('txtfname').value;
+            var lastName = document.getElementById('txtlname').value;
+            var phone = document.getElementById('txtphone').value;
+            var address = document.getElementById('txtaddress').value;
+            var city = document.getElementById('txtcity').value;
+
+            if (rowToUpdate) {
+
+                if (firstName) {
+                    contactsArray[arrayIndex].firstName = firstName;
+                }
+                if (lastName) {
+                    contactsArray[arrayIndex].lastName = lastName;
+                }
+                if (phone) {
+                    contactsArray[arrayIndex].phone = phone;
+                }
+                if (address) {
+                    contactsArray[arrayIndex].address = address;
+                }
+                if (city) {
+                    contactsArray[arrayIndex].city = city;
+                }
+                obj = JSON.stringify(contactsArray[arrayIndex]);
+
+                $.ajax({
+                    url: "http://localhost:51057/api/contact/" + id,
+                    type: "PUT",
+                    data: obj,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    timeout: 100000,
+                    success: function() {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+
+            }
         }
 
     }

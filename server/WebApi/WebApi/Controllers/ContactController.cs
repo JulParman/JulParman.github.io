@@ -65,21 +65,35 @@ namespace WebApi.Controllers
                 return NotFound();
             }
 
-            contact.FirstName = item.FirstName;
-            contact.LastName = item.LastName;
-            contact.Phone = item.Phone;
-            contact.Address = item.Address;
-            contact.City = item.City;
-
+            if (item.FirstName != contact.FirstName)
+            {
+                contact.FirstName = item.FirstName;
+            }
+            if (item.LastName != contact.LastName)
+            {
+                contact.LastName = item.LastName;
+            }
+            if (item.Phone != contact.Phone)
+            {
+                contact.Phone = item.Phone;
+            }
+            if (item.Address != contact.Address)
+            {
+                contact.Address = item.Address;
+            }
+            if (item.City != contact.City)
+            {
+                contact.City = item.City;
+            }
             _contactRepository.Update(contact);
-            return new OkResult();
+            return new NoContentResult();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _contactRepository.Find(id);
-            if (todo == null)
+            var contact = _contactRepository.Find(id);
+            if (contact == null)
             {
                 return NotFound();
             }

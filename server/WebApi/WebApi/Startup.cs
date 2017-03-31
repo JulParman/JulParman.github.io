@@ -30,6 +30,9 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // requires using Microsoft.EntityFrameworkCore;
+            services.AddDbContext<ContactContext>(opt => opt.UseInMemoryDatabase());
+            services.AddSingleton<IContactRepository, ContactRepository>();
             // Add service and create Policy with options
             services.AddCors(options =>
             {
@@ -40,13 +43,9 @@ namespace WebApi
                     .AllowCredentials());
             });
 
-            // requires using Microsoft.EntityFrameworkCore;
-            services.AddDbContext<ContactContext>(opt => opt.UseInMemoryDatabase());
-
             // Add framework services.
             services.AddMvc();
-
-            services.AddSingleton<IContactRepository, ContactRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
