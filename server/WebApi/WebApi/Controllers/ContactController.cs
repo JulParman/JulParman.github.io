@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Remotion.Linq.Clauses;
 using WebApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -64,27 +65,12 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-
-            if (item.FirstName != contact.FirstName)
-            {
                 contact.FirstName = item.FirstName;
-            }
-            if (item.LastName != contact.LastName)
-            {
                 contact.LastName = item.LastName;
-            }
-            if (item.Phone != contact.Phone)
-            {
                 contact.Phone = item.Phone;
-            }
-            if (item.Address != contact.Address)
-            {
                 contact.Address = item.Address;
-            }
-            if (item.City != contact.City)
-            {
                 contact.City = item.City;
-            }
+            
             _contactRepository.Update(contact);
             return new NoContentResult();
         }
@@ -97,7 +83,6 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-
             _contactRepository.Remove(id);
             return new NoContentResult();
         }
