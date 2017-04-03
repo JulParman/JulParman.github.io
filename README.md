@@ -1,4 +1,4 @@
-Contacts-app
+Contacts-app-part 2
 
 Client
 * Intellji idea, HTML, JavaScript, CSS, JQuery 
