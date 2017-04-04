@@ -5,4 +5,4 @@
 * https://julparman.github.io/client/contacts-app/
 
 ## Server
-* C#, ASP.NET Core MVC
+* Visual Studio 2017, C#, ASP.NET Core MVC
