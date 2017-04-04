@@ -1,8 +1,8 @@
-## Contacts-app-part 2
+# Contacts-app-part 2
 
-# Client
+## Client
 * Intellji idea, HTML, JavaScript, CSS, JQuery 
 * https://julparman.github.io/client/contacts-app/
 
-# Server
+## Server
 * C#, ASP.NET Core MVC
